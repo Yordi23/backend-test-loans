@@ -1,11 +1,11 @@
 const userModel = require('./../models/user');
+const { v4: uuidv4 } = require('uuid');
 
 const create = async (createUserDto) => {
 	const user = await userModel.create({
 		name: createUserDto.name,
 		email: createUserDto.email,
-		//TODO: Auto generate this code
-		clientCode: createUserDto.clientCode,
+		clientCode: uuidv4(),
 		profilePicture: createUserDto.profilePicture,
 	});
 
