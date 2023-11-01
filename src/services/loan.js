@@ -1,4 +1,5 @@
 const loanModel = require('../models/loan');
+const userModel = require('../models/user');
 const AppError = require('../utils/app-error');
 
 const create = async (createLoanDto) => {
@@ -12,6 +13,15 @@ const create = async (createLoanDto) => {
 
 const getAll = async () => {
 	const loans = await loanModel.find().populate('borrower');
+
+	return loans;
+};
+
+const getByUserName = async (userName) => {
+	const users = await userModel.find({ name: { $regex: userName } });
+	const loans = await loanModel
+		.find({ borrower: users })
+		.populate('borrower');
 
 	return loans;
 };
@@ -30,4 +40,5 @@ module.exports = {
 	create,
 	getAll,
 	getById,
+	getByUserName,
 };

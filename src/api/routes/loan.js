@@ -22,7 +22,12 @@ router.post('/', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
 	try {
-		const loans = await LoanService.getAll();
+		let loans;
+		if (req.query.userName) {
+			loans = await LoanService.getByUserName(req.query.userName);
+		} else {
+			loans = await LoanService.getAll();
+		}
 
 		res.status(200).json({
 			status: 'success',
