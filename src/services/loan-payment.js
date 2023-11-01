@@ -19,13 +19,14 @@ const create = async (createLoanPaymentDto) => {
 		);
 	}
 
+	//Note: Ideally this would be done using transactions to ensure all operations are performed.
+	//		But for supporting it, would be needed to configure a replica set member or mongos.
 	const loanPayment = await loanPaymentModel.create({
 		amount: createLoanPaymentDto.amount,
 		loan: createLoanPaymentDto.loan,
 	});
 
 	loan.remainingAmount = loan.remainingAmount - loanPayment.amount;
-	//TODO: Use transactions
 	await loan.save();
 
 	return { ...loanPayment.toJSON(), loan: loan.toJSON() };
