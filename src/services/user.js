@@ -12,6 +12,22 @@ const create = async (createUserDto) => {
 	return user;
 };
 
+const update = async (id, updateUserDto) => {
+	const user = await userModel.findByIdAndUpdate(
+		id,
+		{
+			name: updateUserDto.name,
+			profilePicture: updateUserDto.profilePicture,
+		},
+		{
+			new: true,
+		}
+	);
+
+	return user;
+};
+
 module.exports = {
 	create,
+	update,
 };
