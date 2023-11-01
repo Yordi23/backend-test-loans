@@ -10,7 +10,7 @@ const logger = require('./config/logger');
 process.on('uncaughtException', (err) => {
 	logger.error(err.message, err);
 	logger.info('Shutting down...');
-	console.log(err.name, err.message);
+	logger.error(err.name, err.message);
 	process.exit(1);
 });
 
