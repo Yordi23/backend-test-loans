@@ -20,4 +20,36 @@ router.post('/', async (req, res, next) => {
 	}
 });
 
+router.get('/', async (req, res, next) => {
+	try {
+		const loans = await LoanService.getAll();
+
+		res.status(200).json({
+			status: 'success',
+			data: {
+				loans,
+			},
+		});
+	} catch (error) {
+		logger.error('Error:', error);
+		return next(error);
+	}
+});
+
+router.get('/:id', async (req, res, next) => {
+	try {
+		const loan = await LoanService.getById(req.params.id);
+
+		res.status(200).json({
+			status: 'success',
+			data: {
+				loan,
+			},
+		});
+	} catch (error) {
+		logger.error('Error:', error);
+		return next(error);
+	}
+});
+
 module.exports = router;

@@ -3,13 +3,13 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 const errorHandler = require('./api/routes/error-handler');
-
 const userRouter = require('./api/routes/user');
 const loanRouter = require('./api/routes/loan');
+const AppError = require('./utils/app-error');
 
 const app = express();
 
-// Enable Cross Origin Resource Sharing to all origins by defaul
+// Enable Cross Origin Resource Sharing to all origins by default
 app.use(cors());
 // Transforms the raw string of req.body into json
 app.use(express.json());
@@ -22,7 +22,9 @@ app.use('/api/v1/loans', loanRouter);
 
 //Error handling
 app.all('*', (req, res, next) => {
-	next(new Error(`Can't find ${req.originalUrl} on this server.`));
+	next(
+		new AppError(`Can't find ${req.originalUrl} on this server.`, 404)
+	);
 });
 
 app.use(errorHandler);
