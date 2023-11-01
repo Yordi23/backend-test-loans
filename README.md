@@ -2,7 +2,7 @@
 
 Follow these steps:
 
-1. Create your `.env` file, you can use the same values as in `.env.example` (only if your Mongo Database is running locally in the same port as specified there).
+1. Create your `.env` file on the root level, you can use the same values as in `.env.example` (only if your Mongo Database is running locally in the same port as specified there).
 2. Run `npm install` to install all the necessary dependencies.
 3. Run `docker-compose up` to start a Mongo database locally using docker (this is only necessary if you don't already have one running).
 4. Run `npm start` to start the server.
